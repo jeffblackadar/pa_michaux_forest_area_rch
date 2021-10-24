@@ -1,0 +1,34 @@
+<html>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+
+<h1>Steps to download and process LiDAR data files for Maryland.</h1>
+<h2>Identify and download LiDAR LAS tiles.</h2>
+    <div class="mermaid">
+graph TD
+    LASD1["Use FEMA 2012 shapefile."]-->LASD2["Add a 1 km buffer to edges of SGLs."];    
+    LASD2-->LASD3["Download PASDA tile indexes for North and South PA."];
+    LASD3-->LASD4["Combine North and South PASDA into a single file using the #quot;Merge Vector Layers#quot; tool in QGIS."]
+    LASD4-->LASD5["Add field for SGL number to combined tile index file using #quot;Join Attributes by Location#quot; tool in QGIS."]
+    LASD5 --> LASD5D{Is tile inside<br>1km buffer<br>of SGL?}
+    LASD5D -->|No| LASD5DN["Ignore."]
+    LASD5D -->|Yes| LASD5DY["Associate tile with SGL number.<br>3,925 unique tiles out of the 13,797 total tiles were now associated with an SGL number."]
+    LASD5DY-->LASD7["Export list of 3,925 tiles associated with an SGL to a spreadsheet."]
+    LASD7-->LASD8["For each tile, download the LAS data file using wget."]
+    LASD8-->LASD9["Move each tile into a separate folder for each SGL number."]
+    LASD9-->LASD10["Validate that a slope file was present for each SGL and would open.<br>This was done with a custom program in QGIS."]
+    
+    </div>
+
+<h2>Process LiDAR LAS tiles</h2>
+    <div class="mermaid">
+graph TD
+    LASP1["Each SGL has a LiDAR data file with a CRS of 26985."]-->LASP2["Process each LiDAR data file with LASTools<br>using using Moritz #quot;Moe#quot; Schiesser#apos;s program.<br>Moe Schiesser#apos;s program instructs LAStools to derive these file types:<br>Hillshade<br>Slope<br>DEM"];    
+    </div>
+
+
+
+
+  </body>
+</html>
