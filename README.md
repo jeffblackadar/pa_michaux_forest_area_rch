@@ -33,6 +33,16 @@ Create folders to hold downladed files. Example: E:\a_new_orgs\carleton\hist5706
 
 Download the files from Google Drive, unzip into directory. Example: /content/drive/MyDrive/crane_maryland/laz/laz_fema_2012_forested_utm/batch_50/laz_utm_0-49 
 
+#### CloudCompare
+
+Run CloudCompare commpands as a batch using the cell in 1_1_Maryland_download_laz_tiles_use_CloudCompare_to_convert_to_DEM
+
+Example: 
+
+!"E:\Program Files\CloudCompare\cloudcompare" -SILENT -O E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_0-199\20120129_17SQD0990_utm.laz -SET_ACTIVE_SF 8 -FILTER_SF 1.1 2.1 -RASTERIZE -GRID_STEP 1 -EMPTY_FILL INTERP -OUTPUT_RASTER_Z 
+
+
+
 
 
 
