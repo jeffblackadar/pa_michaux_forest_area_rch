@@ -4,28 +4,40 @@
     <script>mermaid.initialize({startOnLoad:true});</script>
 
 <h1>Steps to download and process LiDAR data files for Maryland.</h1>
-<h2>Identify and download LiDAR LAS tiles.</h2>
-    <div class="mermaid">
-graph TD
-    LASD1["Use FEMA 2012 shapefile."]-->LASD2["Add a 1 km buffer to edges of SGLs."];    
-    LASD2-->LASD3["Download PASDA tile indexes for North and South PA."];
-    LASD3-->LASD4["Combine North and South PASDA into a single file using the #quot;Merge Vector Layers#quot; tool in QGIS."]
-    LASD4-->LASD5["Add field for SGL number to combined tile index file using #quot;Join Attributes by Location#quot; tool in QGIS."]
-    LASD5 --> LASD5D{Is tile inside<br>1km buffer<br>of SGL?}
-    LASD5D -->|No| LASD5DN["Ignore."]
-    LASD5D -->|Yes| LASD5DY["Associate tile with SGL number.<br>3,925 unique tiles out of the 13,797 total tiles were now associated with an SGL number."]
-    LASD5DY-->LASD7["Export list of 3,925 tiles associated with an SGL to a spreadsheet."]
-    LASD7-->LASD8["For each tile, download the LAS data file using wget."]
-    LASD8-->LASD9["Move each tile into a separate folder for each SGL number."]
-    LASD9-->LASD10["Validate that a slope file was present for each SGL and would open.<br>This was done with a custom program in QGIS."]
-    
-    </div>
+
 
 <h2>Process LiDAR LAS tiles</h2>
     <div class="mermaid">
 graph TD
-    LASP1["Each SGL has a LiDAR data file with a CRS of 26985."]-->LASP2["Process each LiDAR data file with LASTools<br>using using Moritz #quot;Moe#quot; Schiesser#apos;s program.<br>Moe Schiesser#apos;s program instructs LAStools to derive these file types:<br>Hillshade<br>Slope<br>DEM"];    
+    LASP1["Each SGL has a LiDAR data file with a CRS of 26985."]
     </div>
+	
+<h2>1_1_Maryland_download_laz_tiles_use_CloudCompare_to_convert_to_DEM</h2>
+    <div class="mermaid">
+graph TD
+    PCCC1["Create working directories."];
+	PCCC2["Download and unzip files from Google Drive."];
+	PCCC3["Process files with CloudCompare."];
+	PCCC1-->PCCC2;
+	PCCC2-->PCCC3;
+	
+    </div>
+	
+	
+	
+### Local processing
+
+The local PC has CloudCompare and QGIS installed, these are not available on Google Colab so it's necessary to moved files from Google Drive and process them on a PC and then move them back. Manual tasks but I could not find a better means to process these files using this collection of software.
+On the local PC laz files will be converted to DEM using CloudCompare. CloudCompare is not installed on Google Colab so it's used on the local PC.
+
+4 batches of 50 laz files (ex: 0-49, 50-99, 100-149, 150-199) will be downloaed into a folder that can contain 200 files (ex: laz_utm_0-199).
+
+Create folders to hold downladed files. Example: E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_0-199. This can be done by running the first cell of 1_1_Maryland_download_laz_tiles_use_CloudCompare_to_convert_to_DEM
+
+Download the files from Google Drive, unzip into directory. Example: /content/drive/MyDrive/crane_maryland/laz/laz_fema_2012_forested_utm/batch_50/laz_utm_0-49 
+
+
+	
 
 
 
