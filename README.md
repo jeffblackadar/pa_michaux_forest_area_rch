@@ -90,7 +90,36 @@ input_laz_utm_fp = "E:\\a_new_orgs\\carleton\\hist5706-maryland\\lidar_files\\re
 
 Run the cell.  It will take several seconds to process each file. Check the directory where the .laz files are. As CloudCompare works, it will create a.bin and a .tif file for each .laz.
 
-####
+#### Quality Assurance
+Run Cell 4 Quality Assurance
 
+Once all of the local processes are done for a group of 200 files these messages should display:
+
+```
+There are:  200  laz files in  E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_200-399\
+There are:  200  tif files in  E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_200-399\dem_tifs\
+There are:  200  slope files in  E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\slope\slope_200-399\
+```
+
+However, some laz files have a fewer number of scalar fields than others. that means if we process files using CloudCompare where Classification is expected to be at index 8 and it's not, the process will fail and no tif will be created.
+
+Running Cell 4 Quality Assurance will attempt to fix this by processing files using an index of 6 for scalar field Classfication. If this works, run Cell 3 Copy/Move tifs again to move the generated tifs from this second cycle to their own directory. Run Cell 4 Quality Assurance again to be sure all files are present.
+
+Expect an error with the slope files until they are created using QGIS.
+
+#### QGIS: create slope files.
+
+1. Open QGIS
+2. Open Python in QGIS
+3. Run 1_2_qgis_load_dem_save_as_slope.py This will save the rasters as slope files.
+4. When done run cell 4 Quality Assurance once more to verify there are 200 files in each of the three directories.
+5. Copy the slope files to Google drive.  Copy E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\slope\slope_200-399 to My Drive/crane_maryland/slope_images/
+
+
+Left off:
+200 laz downloaded
+E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_400-599
+
+laz processing in 200-399
 
 

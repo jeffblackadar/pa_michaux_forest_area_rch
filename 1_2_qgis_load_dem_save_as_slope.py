@@ -17,8 +17,9 @@ The Algorithm ID is needed to run the process result = processing.run("gdal:slop
 
 ### Create slope tif
 """
-input_dem_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/reprojected/laz_utm_0-199/dem_tifs/"
-output_slope_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/slope/slope_0-199/"
+batch_group = "200-399"
+input_dem_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/reprojected/laz_utm_"+batch_group+"/dem_tifs/"
+output_slope_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/slope/slope_"+batch_group+"/"
 
 import time
 import os
@@ -29,7 +30,7 @@ for root, dirs, files in os.walk(input_dem_fp, topdown=False):
       name_ext = name[-4:].lower()
       if(name_ext==".tif"):
           dem_in_path = os.path.join(input_dem_fp, name)
-          slope_out_path = os.path.join(output_slope_fp, ("slope_"+ name[:22]+".tif"))
+          slope_out_path = os.path.join(output_slope_fp, ("slope_"+ name[:name.find("_utm")+4]+".tif"))
           
           params = { 'CRS' : QgsCoordinateReferenceSystem('EPSG:26918'), 'INPUT' : dem_in_path}
           result = processing.run("gdal:assignprojection", params)
