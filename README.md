@@ -90,36 +90,53 @@ input_laz_utm_fp = "E:\\a_new_orgs\\carleton\\hist5706-maryland\\lidar_files\\re
 
 Run the cell.  It will take several seconds to process each file. Check the directory where the .laz files are. As CloudCompare works, it will create a.bin and a .tif file for each .laz.
 
-#### Quality Assurance
-Run Cell 4 Quality Assurance
+#### Quality Assurance 1
+In Cell 4, change line 3 to the appropriate folder, for example:
+```
+batch_group = "400-599"
+```
+Run Cell 4 Quality Assurance 1
 
 Once all of the local processes are done for a group of 200 files these messages should display:
 
 ```
 There are:  200  laz files in  E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_200-399\
 There are:  200  tif files in  E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_200-399\dem_tifs\
-There are:  200  slope files in  E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\slope\slope_200-399\
+Both directories have 200 files. This looks good.
 ```
 
-However, some laz files have a fewer number of scalar fields than others. that means if we process files using CloudCompare where Classification is expected to be at index 8 and it's not, the process will fail and no tif will be created.
+However, some laz files have a fewer number of scalar fields than others. that means if we process files using CloudCompare where Classification is expected to be at index 8 and it's not at index 8, the process will fail and no tif will be created.
 
-Running Cell 4 Quality Assurance will attempt to fix this by processing files using an index of 6 for scalar field Classfication. If this works, run Cell 3 Copy/Move tifs again to move the generated tifs from this second cycle to their own directory. Run Cell 4 Quality Assurance again to be sure all files are present.
-
-Expect an error with the slope files until they are created using QGIS.
+Running Cell 4 Quality Assurance 1 will attempt to fix this by processing files using an index of 6 for scalar field Classfication. If this works, run Cell 3 Copy/Move tifs again to move the generated tifs from this second cycle to the dem_tifs directory. Run Cell 4 Quality Assurance 1 again to recount the files.
 
 #### QGIS: create slope files.
 
 1. Open QGIS
 2. Open Python in QGIS
-3. Run 1_2_qgis_load_dem_save_as_slope.py This will save the rasters as slope files.
-4. When done run cell 4 Quality Assurance once more to verify there are 200 files in each of the three directories.
-5. Copy the slope files to Google drive.  Copy E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\slope\slope_200-399 to My Drive/crane_maryland/slope_images/
+3. Open 1_2_qgis_load_dem_save_as_slope.py and 1_3_qgis_save_slope_tif_as_jpg.py and change batch_group, for example, "400-599".  In 1_2_qgis_load_dem_save_as_slope.py, verify the CRS used, for example, 'EPSG:26918'.
+4. Run 1_2_qgis_load_dem_save_as_slope.py This will save the DEM tifs as slope tif files.
+5. Run 1_3_qgis_save_slope_tif_as_jpg.py This will save the slope tifs as jpgs.
+
+#### Quality Assurance 2
+
+When done in QGIS run cell 5 Quality Assurance 2 to verify there are 200 files in each of the four directories. These messages should display:
+
+```
+There are: 200 laz files in E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_200-399\
+There are: 200 tif files in E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_200-399\dem_tifs\
+There are: 200 slope files in E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\slope\slope_200-399\
+There are: 200 slope jpg files in E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\slope\slope_200-399\jpgs\
+All directories have 200 files. This looks good.
+```
+
+#### Copy JPGs to Google Drive
+Copy the jpg files to Google drive so they can be used by Mask R-CNN.  Copy E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\slope\slope_200-399/jpgs/ to My Drive/crane_maryland/slope_images/jpgs/
 
 
 Left off:
 200 laz downloaded
 E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_400-599
 
-laz processing in 200-399
+laz processing in 400-599
 
 
