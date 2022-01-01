@@ -17,7 +17,7 @@ The Algorithm ID is needed to run the process result = processing.run("gdal:slop
 
 ### Create slope tif
 """
-batch_group = "200-399"
+batch_group = "1000-1599"
 input_dem_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/reprojected/laz_utm_"+batch_group+"/dem_tifs/"
 output_slope_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/slope/slope_"+batch_group+"/"
 
@@ -38,7 +38,6 @@ for root, dirs, files in os.walk(input_dem_fp, topdown=False):
     
           params = { 'AS_PERCENT' : False, 'BAND' : 1, 'COMPUTE_EDGES' : False, 'EXTRA' : '', 'INPUT' : dem_in_path, 'OPTIONS' : '', 'OUTPUT' : slope_out_path, 'SCALE' : 1, 'ZEVENBERGEN' : False }
           result = processing.run("gdal:slope", params)
-          result_layer_slope = result['OUTPUT']
-          
+          result_layer_slope = result['OUTPUT']   
     
           
