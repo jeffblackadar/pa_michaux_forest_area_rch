@@ -17,7 +17,7 @@ The Algorithm ID is needed to run the process result = processing.run("gdal:slop
 
 ### Create slope tif
 """
-batch_group = "1000-1599"
+batch_group = "1600-2199"
 input_dem_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/reprojected/laz_utm_"+batch_group+"/dem_tifs/"
 output_slope_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/slope/slope_"+batch_group+"/"
 

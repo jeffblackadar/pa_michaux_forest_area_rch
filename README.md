@@ -24,6 +24,49 @@ E:\a_new_orgs\carleton\hist5706-maryland\lidar_files
 /content/drive/MyDrive/crane_maryland/
 ```
 
+### Select laz tiles
+Use
+https://github.com/jeffblackadar/maryland_rch/blob/main/0_1_maryland_lidar_select_tiles.ipynb
+
+### LiDAR tiles shapefile
+
+This is from FEMA, projected to crs 26985: Get LiDAR las files from [https://coast.noaa.gov/dataviewer/](https://coast.noaa.gov/dataviewer/) Data Access Viewer
+
+Bulk download and information [https://chs.coast.noaa.gov/htdata/lidar2_z/geoid18/data/8496/](https://chs.coast.noaa.gov/htdata/lidar2_z/geoid18/data/8496/)
+
+lidar_tiles_path = "/content/drive/MyDrive/crane_maryland/lidar_tile_polygons/2012_fema_md_index_26985.shp"
+
+### Land use: Forested
+
+This is from the state of Maryland, filtered for only forested areas:
+
+land_use_path = "/content/drive/MyDrive/crane_maryland/land_use/Maryland_Land_Use_Land_Cover_-_Land_Use_Land_Cover_2010_forest.shp"
+
+## Outputs
+
+A shapefile to contain LiDAR tiles that are in forested areas:
+
+lidar_tiles_forested_polys_fp = "/content/drive/MyDrive/crane_maryland/polys/2012_fema_md_forested.shp"
+
+## Method
+
+Examine each LiDAR tile polygon and see if it overlaps the Geopandas Geoseries of forested polygons.
+
+```
+if (land_use_geoseries.overlaps(pred_poly).any()==True) or (land_use_geoseries.contains(pred_poly).any()==True) or (land_use_geoseries.within(pred_poly).any()==True):
+```
+
+# Wget the .laz files
+
+-   Open the shape file containing the polygons of forested lidar tiles in Maryland.
+    
+-   For each row, wget the file at the url.
+
+# Convert laz to UTM
+https://github.com/jeffblackadar/maryland_rch/blob/main/0_2_maryland_convert_laz_to_utm.ipynb
+
+
+
 ### Download files from Google Drive to local drive
 
 There is a constraint that only a 2gb zip file can be downloaded at one time. The .laz files are large so they have been batched into units of 50.
@@ -39,7 +82,7 @@ On the local PC laz files will be converted to DEM using CloudCompare. CloudComp
 
 Steps:
 
-1. Create folders to hold downladed files. Example: 
+1. Create folders to hold downloaded files. Example: 
 ```
 E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_0-199. 
 ```
@@ -129,7 +172,9 @@ There are: 200 slope jpg files in E:\a_new_orgs\carleton\hist5706-maryland\lidar
 All directories have 200 files. This looks good.
 ```
 
-#### Copy JPGs to Google Drive
+#### Copy JPGs and Tifs to Google Drive
+The jpgs are needed for Mask R-CNN recognition. The Tifs are needed to convert image coordinates back into geographic coordinates.
+
 Copy the jpg files to Google drive so they can be used by Mask R-CNN.  Copy E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\slope\slope_200-399/jpgs/ to My Drive/crane_maryland/slope_images/jpgs/
 
 
@@ -140,3 +185,12 @@ E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_400-599
 laz processing in 400-599
 
 
+## QGIS Evaluate Points
+In QGIS evaluate points
+This is a test that 4 lines can be drawn from each point
+Load DEM tile
+Load points for tile
+for each point draw 4 lines
+for each line drape it get z values
+for each line use climb plugin
+Look at descent

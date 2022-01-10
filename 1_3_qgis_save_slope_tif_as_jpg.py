@@ -1,4 +1,4 @@
-batch_group = "1000-1599"
+batch_group = "1600-2199"
 input_slope_tif_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/slope/slope_"+batch_group+"/"
 output_slope_jpg_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/slope/slope_"+batch_group+"/jpgs/"
 
