@@ -185,6 +185,13 @@ E:\a_new_orgs\carleton\hist5706-maryland\lidar_files\reprojected\laz_utm_400-599
 laz processing in 400-599
 
 
+## Run Predictions
+Google Colab
+Mount Google Drive
+Install Mask R-CNN
+Ensure files are present (tif and jpg)
+Run model
+
 ## QGIS Evaluate Points
 In QGIS evaluate points
 This is a test that 4 lines can be drawn from each point
