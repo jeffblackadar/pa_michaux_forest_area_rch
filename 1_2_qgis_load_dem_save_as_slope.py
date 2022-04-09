@@ -1,5 +1,6 @@
 # Run after CloudCompare has created DEMs
-# Check the directories. They must be changed manually for each batch of 200
+# Check the directories exist and are empty. They must be changed manually for each batch of 200
+# Check the crs is correct below in two places
 
 """
 This program uses QGIS Process Algorithms. These Process Algorithms are like macros that allow QGIS tasks to be run from Python.
@@ -13,13 +14,13 @@ The Algorithm ID is needed to run the process result = processing.run("gdal:slop
 
 ## Process
 
-### Set crs = EPSG:26918
+### Set crs = EPSG:32129
 
 ### Create slope tif
 """
-batch_group = "1600-2199"
-input_dem_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/reprojected/laz_utm_"+batch_group+"/dem_tifs/"
-output_slope_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/slope/slope_"+batch_group+"/"
+batch_group = "0-597"
+input_dem_fp = "E:/a_new_orgs/carleton/pennsylvania_michaux/lidar_files/reprojected/laz_utm_"+batch_group+"/dem_tifs/"
+output_slope_fp = "E:/a_new_orgs/carleton/pennsylvania_michaux/lidar_files/slope/slope_"+batch_group+"/"
 
 import time
 import os
@@ -32,7 +33,7 @@ for root, dirs, files in os.walk(input_dem_fp, topdown=False):
           dem_in_path = os.path.join(input_dem_fp, name)
           slope_out_path = os.path.join(output_slope_fp, ("slope_"+ name[:name.find("_utm")+4]+".tif"))
           
-          params = { 'CRS' : QgsCoordinateReferenceSystem('EPSG:26918'), 'INPUT' : dem_in_path}
+          params = { 'CRS' : QgsCoordinateReferenceSystem('EPSG:32129'), 'INPUT' : dem_in_path}
           result = processing.run("gdal:assignprojection", params)
           result_layer = result['OUTPUT']
     

@@ -1,6 +1,6 @@
-batch_group = "1600-2199"
-input_slope_tif_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/slope/slope_"+batch_group+"/"
-output_slope_jpg_fp = "E:/a_new_orgs/carleton/hist5706-maryland/lidar_files/slope/slope_"+batch_group+"/jpgs/"
+batch_group = "0-597"
+input_slope_tif_fp = "E:/a_new_orgs/carleton/pennsylvania_michaux/lidar_files/slope/slope_"+batch_group+"/"
+output_slope_jpg_fp = "E:/a_new_orgs/carleton/pennsylvania_michaux/lidar_files/slope/slope_"+batch_group+"/jpgs/"
 
 #Convert tifs to jpgs 
 import gdal
