@@ -1,0 +1,83 @@
+<html>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+
+<h1>Process to train and run the object detection model using YOLO.</h1>
+
+
+<h2>Identifying hearths for training the model</h2>
+<div class="mermaid">
+graph TD
+IDH1["Locate valid RCH examples with a systematic visual review of tiles<br>4,376 charcoal hearths were identified through manual feature extraction."]
+IDH1-->IDH3["Store the location of the approximate center of RCHs as points in a shapefile. #quot;known_rch.shp#quot;."]
+
+</div>
+
+
+
+<h2>Split the tif of each State Game Land into smaller uniform size tiles for training and prediction.</h2>
+Program: 0_split_tifs_refactored.ipynb
+<div class="mermaid">
+graph TD
+ST1["For each slope tif:"]-->ST2["Divide the tif using a grid into smaller tiles<br>(640 X 640 pixels in size)."]
+ST2-->ST3["Save the grid as a shapefile."]
+ST3-->ST4["Save the smaller tile as a .tif"]
+ST4-->ST5["Make a copy of the .tif as a .jpg"]
+ST5-->ST6["The files are named in the following manner: USGS project, r (row) numberm c (column) number."]
+ST6-->ST7["Store all tiles for detection of unknown RCHs after the model is trained."]
+ST7-->ST8{"Does tile<br>contain a point of<br>a known RCH?<br>(Using points stored in<br> #quot;known_rch.shp#quot;.)"}
+ST8 -->|No| ST8N["No additional action."]
+ST8 -->|Yes| ST8Y["Copy tile to images_training folder."]
+ST8Y-->ST9["Convert point of RCH to a<br>rectangular polygon 30mX30m in size.<br>This size contains the RCH and a small buffer."]
+ST9-->ST10["Create .xml annotation file for each training tile.<br>The annotation file contains the pixel coordinates of the image of known RCH in the JPG<br>so that Mask R-CNN can locate it as an example."]
+</div>
+
+
+
+<h2>Train the model</h2>
+<h3>Prepare training and testing sets</h3>
+Program: 
+
+<div class="mermaid">
+graph TD
+TM1["Split images into 2 datasets:<br>80% Training, 20% Testing"]-->TM2["Count the images and total RCH to validate results later:<br>
+Train images: 663, containing 4408 rectangles of RCH.<br>
+Test images: 165, containing 1014 rectangles of RCH.<br>
+This was done in a random-like manner,<br>
+images with file names ending in 4 or 9 were reserved for testing."]
+</div>
+
+
+<h3>Run training</h3>
+Program: 
+
+<div class="mermaid">
+graph TD
+RT1["Set training parameters in class ObjectConfig:
+<br>STEPS_PER_EPOCH = 663<br>(The number of training images.)
+<br>VALIDATION_STEPS = 165<br>(The number of testing images.)
+<br>LEARNING_RATE = 0.001
+<br>DETECTION_MAX_INSTANCES = 46
+<br>DETECTION_MIN_CONFIDENCE = 0.9"]-->RT2["Train model for 8 epochs, layers='heads'."]
+RT2-->RT3["Train model for an additional 10 epochs, layers='all',LEARNING_RATE /10."]
+RT3-->RT4["Train model for an additional 10 epochs, layers='all',LEARNING_RATE /100."]
+RT4-->RT5["Inspect model results:
+<br>Graphs of loss and validation loss.
+"]
+RT5-->RT51["Evaluate mean average precision (mAP).
+<br>train_mAP = evaluate_model(train_set, model, pred_cfg)
+<br>test_mAP = evaluate_model(test_set, model, pred_cfg)
+<br>If mAP > 50% it is worth more inspection."]
+RT51-->RT6{"Does model pass<br>graph and<br>score test?"}
+RT6 -->|No| RT6N["Discard."]
+RT6N -->|Adjust parameters<br>retrain|RT1
+RT6 -->|Yes| RT6Y["Run prediction using model on 20 images."]
+RT6Y-->RT7{Does model pass<br>first visual test?}
+RT7 -->|No| RT7N["Discard."]
+RT7N -->|Adjust parameters<br>retrain|RT1
+RT7 -->|Yes| RT7Y["Score predictions for 100 images. (See right column.)"]
+</div>
+
+  </body>
+</html>

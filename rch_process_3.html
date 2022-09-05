@@ -1,0 +1,79 @@
+<html>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+
+<h1>&nbsp;</h1>
+
+
+<h2>Score predictions for 100 images</h2>
+Program: data_5000_4_rcnn_charcoal_hearths_count_results.ipynb
+
+<div class="mermaid">
+graph TD
+SC1["Loop through 100 images on screen."]-->SC2["For each image:
+<br>Score if object is present in the image or not."]
+SC2-->SC3["White boxes show each known RCH.
+<br>Green boxes show a correct prediction based on manual scoring.
+<br>Red boxes show a false prediction based on manual scoring.
+"]
+SC3-->SC4["Score each prediction as correct or false.<br>All scores are collected in resultscfg.csv."]
+
+</div>
+
+
+<h3>Analyse predictions for 100 images</h3>
+Program: 5_plot_results.rmd
+<br>Output: prediction_results.pdf
+<div class="mermaid">
+graph TD
+PR1["The notebook produces these charts:
+<br>Present in Image.
+<br>Prediction Regions, True vs. False Positives.
+<br>Sensitivity and Specificity.
+<br>Predictive Value.
+"]
+PR1-->PR2{"Does model pass?"}
+PR2 -->|No| PR2N["Discard"]
+PR2N -->|Adjust parameters|PR2N2["Retrain"]
+PR2 -->|Yes| PR2Y["Run prediction on all images."]
+</div>
+
+<h2>Process predictions for all images</h2>
+Program: 2_read_predictions_from_xml_put_into_shp.ipynb
+<div class="mermaid">
+graph TD
+PP1["Read the predictions from the xml annotation files.
+<br>Store prediction polygon coordinates into a shapefile."]
+PP1-->PP2["Convert Polygons to Points and remove duplicates."]
+PP2-->PP3["A shapefile of points of predictions is ready for final analysis."]
+
+
+</div>
+
+
+<h2>Assessing the Mask R-CNN Predictions</h2>
+<h3>Preliminary Analysis</h3>
+
+<div class="mermaid">
+graph TD
+AP1["Chose eight SGLs (13, 33, 37, 39, 51, 76, 83, 217)<br>distributed across the state and physiographic provinces."]
+AP1-->AP2["Manually assessed predicted RCH."]
+AP2-->AP3["Grouped results into 4 confidence bins."]
+AP3-->AP4["Analysis showed there were many individual false positives<br>(150 of 190 or 78.9%)."]
+</div>
+
+<h3>Cluster Analysis</h3>
+
+<div class="mermaid">
+graph TD
+CA1["Employed the DBSCAN plugin in QGIS."]
+CA1-->CA2["DBSCAN creates clusters based upon two variables,<br>the maximum distance and the<br>minimum number of individuals in a cluster."]
+CA2-->CA3["We used three different combinations of variables<br>(minimum number/ maximum distance> =<br> 5/ 300 meters, 10/ 500 meters, 20/ 1000 meters)<br> to visualize these clusters."]
+
+CA3-->CA4["DBSCAN analysis distinguished likely true clusters from &apos;noise&apos;".]
+
+</div>
+
+  </body>
+</html>
