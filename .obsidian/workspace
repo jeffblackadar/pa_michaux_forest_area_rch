@@ -4,14 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "b69650c075086775",
+        "id": "cc44b0cd6cb6b5a3",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "README.md",
-            "mode": "source"
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -68,7 +65,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,8 +82,10 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "b69650c075086775",
+  "active": "cc44b0cd6cb6b5a3",
   "lastOpenFiles": [
+    "training_files.md",
+    "re_train_instruction_1.md",
     "README.md",
     "local_processing_step_2.png"
   ]

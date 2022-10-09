@@ -1,4 +1,4 @@
-# maryland_rch
+# pennsylvania_rch
 
 Main repository
 
