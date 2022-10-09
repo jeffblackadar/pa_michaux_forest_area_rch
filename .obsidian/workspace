@@ -4,7 +4,7 @@
     "type": "split",
     "children": [
       {
-        "id": "cc44b0cd6cb6b5a3",
+        "id": "96b4b600f51ad1a4",
         "type": "leaf",
         "state": {
           "type": "empty",
@@ -82,7 +82,7 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "cc44b0cd6cb6b5a3",
+  "active": "96b4b600f51ad1a4",
   "lastOpenFiles": [
     "training_files.md",
     "re_train_instruction_1.md",

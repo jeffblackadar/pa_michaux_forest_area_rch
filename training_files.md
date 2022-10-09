@@ -54,6 +54,16 @@ Each set of tiles has a shapefile showing the outline.  This is useful to see if
 
 /content/drive/MyDrive/crane_pennsylvania/slope/va_southamptonhenricowmbg_2019_b19/tiles640/polys
 
+#### predictions
+
+each project has a shapefile of predictions, for example:
+
+```
+G:\My Drive\crane_pennsylvania\predictions\project_va_northernshenandoah_2020_d20\va_northernshenandoah_2020_d20_predictions_26917.shp
+```
+
+The crs for the predictions is 26917 or 26918.  Due to overlap, some projects have prediction files for both crss, load both.
+
 # Project organization
 The DEMs are processed by separate LiDAR project. DEMs, slopes and predictions each have a sub directory for each LiDAR project which covers part of a state.
 
@@ -88,7 +98,7 @@ The DEMs are processed by separate LiDAR project. DEMs, slopes and predictions e
 
 ## How to check points
 
-In QGIS, ise Identify Features to get a tile's name.  Example: USGS_1M_17_x72y446_PA_Northcentral_2019_B19.tif
+In QGIS, use Identify Features to get a tile's name.  Example: USGS_1M_17_x72y446_PA_Northcentral_2019_B19.tif
 
 ![QGIS select tile, get its name](re_train_instruction_1.png "Select tile to find its name.")
 
@@ -106,3 +116,5 @@ G:\My Drive\crane_pennsylvania\slope\pa_northcentral_2019_b19\USGS_1M_17_x72y446
 ![QGIS identify additional points](re_train_instruction_2.png "Examine tiles to see if there are additional RCH inside a tile along with previously identified points.")
 
 Please note the tiles you work with so they can be included in the training data while we discard uninspected tiles.
+
+## Predictions
