@@ -1,5 +1,27 @@
 # Training files
 
+The folder to copy is here:
+/content/drive/MyDrive/crane_pennsylvania/qgis_retraining_project
+
+The QGIS project is rch_retraining_2022.qgzThe layers are loaded.  For each area, there is a tile grid, dem and slope. I turned off the dem and slope (except for one)
+The source files are stored in
+
+dem/
+
+slope/
+
+tile_grid/ - polygons of tiles
+
+training_points/ - points Ben and Weston found plus a file of Jeff's potential points
+
+## Check these points please
+
+G:\My Drive\crane_pennsylvania\qgis_retraining_project\training_points\training_points_26918_2022-08-07_additional_jeff_only.shp
+
+## New points
+
+There are a lot tiles (256 for each slope file), select tiles you'd like to work on.  If you note which points are new, I can pick up which tile you are working on. Or, note the tile.
+
 We are gathering additional training points.
 
 ## Google drive

@@ -1,0 +1,11 @@
+Good news, 
+The automation paid off I think, moving and loading the files into QGIS went faster than expected.
+The folder you would need to copy is here:/content/drive/MyDrive/crane_pennsylvania/pa_michaux_forest_area_rch/qgis_retraining_project
+
+The QGIS project is rch_retraining_2022.qgzThe layers are loaded.  For each area, there is a tile grid, dem and slope. I turned off the dem and slope (except for one)
+The source files are stored indem/slope/
+tile_grid/ - polygons of tiles
+training_points/ - points Ben and Weston found plus a file of Jeff's potential points
+
+There are a lot of little tiles (256 for each slope file) I would only do ones where there are points, plus a few blank ones.
+I hope this loads ok!Thanks,Jeff
